@@ -4,8 +4,6 @@ title:  "Using Categorical Variables in Scikit-learn Pipeline"
 date:   2017-07-13
 ---
 
-# Using Categorical and Numerical Values in Scikit-learn Pipeline
-
 
 ```python
 import pandas as pd

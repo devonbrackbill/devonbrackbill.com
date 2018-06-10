@@ -3,8 +3,9 @@ layout: page
 title: Blog
 ---
 
+
 <!-- using the split filter -->
-{% for post in site.posts limit:1 %}
+{% for post in site.posts limit:100 %}
    <div class="post-preview">
    <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
    <span class="post-date">{{ post.date | date: "%B %d, %Y" }}</span>

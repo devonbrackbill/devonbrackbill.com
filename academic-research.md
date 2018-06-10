@@ -1,21 +1,23 @@
 ---
 layout: page
-title: Research
+title: Academic Research
 ---
 
 My **dissertation**, which was supported by the [NSF](http://www.nsf.gov/awardsearch/showAward?AWD_ID=1519026&HistoricalAwards=false) and the [Wharton Risk Center Russell Ackoff Fellowship](http://riskcenter.wharton.upenn.edu/russell-ackoff-doctoral-student-fellowships/), examined how the structure of collaboration networks affects the ability of groups to solve complex problems.
 
 #Publications
 
-Joshua Becker, **Devon Brackbill**, and Damon Centola. (2017). Network dynamics of social influence in the wisdom of crowds. *Proceedings of the National Academy of Sciences*  [article](http://www.pnas.org/content/early/2017/06/06/1615978114.abstract).
+Damon Centola, Joshua Becker, **Devon Brackbill**, and Andrea Baronchelli. (2018). Experimental evidence for tipping points in social convention. ***Science***.  [article](http://science.sciencemag.org/content/360/6393/1116).
 
-Jingwen Zhang, **Devon Brackbill**, Sijia Yang, Joshua Becker, Natalie Herbert, and Damon Centola. (2016). Support or Competition? How online social networks increase physical activity: A randomized controlled trial. *Preventative Medicine Reports* [article](http://www.sciencedirect.com/science/article/pii/S2211335516300936).
+Joshua Becker, **Devon Brackbill**, and Damon Centola. (2017). Network dynamics of social influence in the wisdom of crowds. ***Proceedings of the National Academy of Sciences***  [article](http://www.pnas.org/content/early/2017/06/06/1615978114.abstract).
 
-Jingwen Zhang, **Devon Brackbill**, Sijia Yang, Damon Centola. (2015). Efficacy and Causal Mechanism of an Online Social Media Intervention to Increase Physical Activity: Results of a Randomized Controlled Trial. *Preventative Medicine Reports*, 2: 651-657. [article](http://www.sciencedirect.com/science/article/pii/S2211335515001072), [pdf](../PreventativeMedRep.pdf).
+Jingwen Zhang, **Devon Brackbill**, Sijia Yang, Joshua Becker, Natalie Herbert, and Damon Centola. (2016). Support or Competition? How online social networks increase physical activity: A randomized controlled trial. ***Preventative Medicine Reports*** [article](http://www.sciencedirect.com/science/article/pii/S2211335516300936).
 
-Jingwen Zhang, **Devon Brackbill**, Sijia Yang, Damon Centola. (2015). Identifying the effects of social media on health behavior: Data from a large-scale online experiment. *Data in Brief*, 5: 453-457. [article](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4610960/)
+Jingwen Zhang, **Devon Brackbill**, Sijia Yang, Damon Centola. (2015). Efficacy and Causal Mechanism of an Online Social Media Intervention to Increase Physical Activity: Results of a Randomized Controlled Trial. ***Preventative Medicine Reports***, 2: 651-657. [article](http://www.sciencedirect.com/science/article/pii/S2211335515001072), [pdf](../PreventativeMedRep.pdf).
 
-Edward D. Mansfield, Diana C. Mutz, and **Devon Brackbill**. Effects of the Great Recession on American Attitudes toward Trade. *British Journal of Political Science* (2016). [article](https://www.cambridge.org/core/journals/british-journal-of-political-science/article/effects-of-the-great-recession-on-american-attitudes-toward-trade/343F5021864097B6385C6E0C2E8037C4), [draft](http://iscap.upenn.edu/sites/default/files/Effects%20of%20the%20Great%20Recession%20on%20American%20Attitudes%20toward%20Trade%2011-10-2014.pdf)
+Jingwen Zhang, **Devon Brackbill**, Sijia Yang, Damon Centola. (2015). Identifying the effects of social media on health behavior: Data from a large-scale online experiment. ***Data in Brief***, 5: 453-457. [article](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4610960/)
+
+Edward D. Mansfield, Diana C. Mutz, and **Devon Brackbill**. Effects of the Great Recession on American Attitudes toward Trade. ***British Journal of Political Science*** (2016). [article](https://www.cambridge.org/core/journals/british-journal-of-political-science/article/effects-of-the-great-recession-on-american-attitudes-toward-trade/343F5021864097B6385C6E0C2E8037C4), [draft](http://iscap.upenn.edu/sites/default/files/Effects%20of%20the%20Great%20Recession%20on%20American%20Attitudes%20toward%20Trade%2011-10-2014.pdf)
 
 ***
 

@@ -3,7 +3,7 @@ layout: page
 title: Data Science Projects
 ---
 
-## [nSpectr.org](http://www.nspectr.org): Predicting Restaurant Health Violations in Boston
+## nSpectr: Predicting Restaurant Health Violations in Boston
 
 *Can machine learning make us healthier?*
 
@@ -11,7 +11,7 @@ title: Data Science Projects
 
 <a href="http://www.nspectr.org"><img height="auto" width="150px" style="float: left; margin: 0px 10px 0px 0px;" src="/img/nspectr.png"  /></a>
 
-As a fellow in <a href=http://www.insightdatascience.com>Insight Data Science</a>, I built <a href=http://www.nspectr.org>nspectr.org</a>, an app that predicts severe health violations  in Boston restaurants. Using a unique data set from Yelp and the city of Boston, I used natural language processing (NLP) techniques to encode the textual data. I implemented several models, including a random forest and gradient boosted trees. I also visualized the model's predictions with an interactive map of the city. You can view the code for the models on <a href=https://github.com/devonbrackbill/project_nspectr>Github</a>.
+As a fellow in <a href=http://www.insightdatascience.com>Insight Data Science</a>, I built an app that predicts severe health violations  in Boston restaurants. Using a unique data set from Yelp and the city of Boston, I used natural language processing (NLP) techniques to encode the textual data. I implemented several models, including a random forest and gradient boosted trees. I also visualized the model's predictions with an interactive map of the city. You can view the code for the models on <a href=https://github.com/devonbrackbill/project_nspectr>Github</a>. I have taken down the website.
 
 <br>
 Tools: Python, R.
