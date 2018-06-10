@@ -1,0 +1,35 @@
+# Dependencies
+markdown:         redcarpet
+highlighter:      pygments
+
+# Permalinks
+permalink:        pretty
+#relative_permalinks: true
+
+# Setup
+title:            Devon Brackbill
+tagline:          ''
+description:      "<p>
+                   Data Scientist | <br> PhD Computational Social Science
+                   </p>"
+url:              http://www.devonbrackbill.com
+baseurl:          /
+
+author:
+  name:           'Devon Brackbill'
+  url:            
+
+paginate:         50
+paginate_path:    "blog/page:num"
+paginate_base_path: "blog"
+
+  
+# Custom vars
+version:          
+
+github:
+  repo:           
+
+gems:             [jekyll-gist, jekyll-paginate]
+
+excerpt_separator: <!--excerpt-->
