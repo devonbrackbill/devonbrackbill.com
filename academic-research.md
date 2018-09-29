@@ -37,6 +37,8 @@ PI, Damon Centola; Co-Investigators, **Devon Brackbill**, Sijia Yang, Jingwen Zh
 
 #Presentations
 
+Joshua Becker, Damon Centola, and **Devon Brackbill**. "Network dynamics of social influence in the wisdom of crowds." American Sociological Association. Philadelphia, PA. August 2018. Mathematical Sociology Honorable Mention Award.
+
 **Devon Brackbill**, Joshua Becker, and Damon Centola. "The Danger of Opinion Leaders: How Social Influence Affects the Wisdom of Crowds." American Sociological Association: Mathematical Sociology. Seattle, WA. August, 2016 (talk).
 
 **Devon Brackbill**, Joshua Becker, and Damon Centola. "The Danger of Opinion Leaders: How Social Influence Affects the Wisdom of Crowds." International Conference on Computational Social Science. Kellogg School of Management, Northwestern University, Evanston, IL. June 24-26, 2016 (talk). [video](https://mediasite.kellogg.northwestern.edu/Mediasite/Play/07ce0b2e41c14ee1bf208223d319b4c71d?catalog=1533bdef-0c88-4513-ad97-5fce50c92e62) (see 28 minute mark).
