@@ -25,22 +25,22 @@ Skills: Implemented tf-idf in Python and cleaned up all the text data before bui
 
 <hr>
 
-## Kaggle Competitions
+## The Tipping Point
 
-*Teaching machines to learn*
+*When do products and norms take off?*
 
 <div class="floating-box">
 
-<a href="https://www.kaggle.com/devonbrackbill"><img height="auto" width="150px" style="float: left; margin: 0px 0px 0px 0px;" src="/img/kaggle.png"  /></a>
+<img height="auto" width="150px" style="float: left; margin: 0px 0px 0px 0px;" src="/img/tippingPoint.png"  />
 
-I have competed in several Kaggle competitions, including classifying purchase decisions for insurance in the <a href="https://www.kaggle.com/c/homesite-quote-conversion">Homesite Quote Conversion Challenge</a>, quantifying property hazards in the <a href="https://www.kaggle.com/c/liberty-mutual-group-property-inspection-prediction">Liberty Mutual Group Challenge</a>, and classifying products in the <a href="https://www.kaggle.com/c/otto-group-product-classification-challenge">Otto Group Classification Challenge</a>, placing in the top 13%, 15%, and 18%, respectively, out of thousands of competitors.
+The search for a tipping point has vexed marketers and social movements alike. This project examines several simulations to show how the number of initial adherents to a product or cause influences its adoption rate. It represents some early theoretical thinking that eventually led to our paper in <i>Science</i> on <a href="http://science.sciencemag.org/content/360/6393/1116">"Experimental evidence for tipping points in social convention."</a>
+<br>
+<br>
+Code for these simulations is available on <a href="https://github.com/devonbrackbill/CommittedMinorities">Github</a>.
 
 <br><br>
 
-Tools: R (xgboost, h2o, caret)
-
-<br>
-<br>
+Tools: Python
 </div>
 
 <hr>
@@ -88,23 +88,22 @@ Code is available on <a href="https://github.com/devonbrackbill/MovingDecision">
 
 <hr>
 
+## Kaggle Competitions
 
-## The Tipping Point
-
-*When do products take off?*
+*Teaching machines to learn*
 
 <div class="floating-box">
 
-<img height="auto" width="150px" style="float: left; margin: 0px 0px 0px 0px;" src="/img/tippingPoint.png"  />
+<a href="https://www.kaggle.com/devonbrackbill"><img height="auto" width="150px" style="float: left; margin: 0px 0px 0px 0px;" src="/img/kaggle.png"  /></a>
 
-The search for a tipping point has vexed marketers and social movements alike. This project examines several simulations to show how the number of initial adherents to a product or cause influences its adoption rate.
-<br>
-<br>
-Code for these simulations is available on <a href="https://github.com/devonbrackbill/CommittedMinorities">Github</a>.
+I have competed in several Kaggle competitions, including classifying purchase decisions for insurance in the <a href="https://www.kaggle.com/c/homesite-quote-conversion">Homesite Quote Conversion Challenge</a>, quantifying property hazards in the <a href="https://www.kaggle.com/c/liberty-mutual-group-property-inspection-prediction">Liberty Mutual Group Challenge</a>, and classifying products in the <a href="https://www.kaggle.com/c/otto-group-product-classification-challenge">Otto Group Classification Challenge</a>, placing in the top 13%, 15%, and 18%, respectively, out of thousands of competitors.
 
 <br><br>
 
-Tools: Python
+Tools: R (xgboost, h2o, caret)
+
+<br>
+<br>
 </div>
 
 <hr>
