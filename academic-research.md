@@ -7,6 +7,8 @@ My **dissertation**, which was supported by the [NSF](http://www.nsf.gov/awardse
 
 #Publications
 
+**Devon Brackbill** and Damon Centola. (2020). Impact of network structure on collective learning: An experimental study in a data science competition. ***PLOS ONE***. [[article](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0237978)].
+
 Damon Centola, Joshua Becker, **Devon Brackbill**, and Andrea Baronchelli. (2018). Experimental evidence for tipping points in social convention. ***Science***.  [[article](http://science.sciencemag.org/content/360/6393/1116)]. [[pdf](https://ndg.asc.upenn.edu/wp-content/uploads/2018/06/Centola-et-al.-2018-Science.-Tipping-Point.pdf)].
 
 Joshua Becker, **Devon Brackbill**, and Damon Centola. (2017). Network dynamics of social influence in the wisdom of crowds. ***Proceedings of the National Academy of Sciences***  [[article](http://www.pnas.org/content/early/2017/06/06/1615978114.abstract)]. [[pdf](http://www.pnas.org/content/pnas/early/2017/06/06/1615978114.full.pdf)].
@@ -26,7 +28,7 @@ Edward D. Mansfield, Diana C. Mutz, and **Devon Brackbill**. Effects of the Grea
 National Science Foundation. Doctoral Dissertation Improvement Grant, Sociology (**$11,912**), March 2015.
 "Designing Collaboration Networks to Optimize Collective Problem-Solving" [Award information](http://www.nsf.gov/awardsearch/showAward?AWD_ID=1519026&HistoricalAwards=false).
 
-Wharton Russell Ackoff Doctoral Student Fellowship for Research on Human Decision Processes and Risk Management, Wharton, University of Pennsylvania (**$3,500** direct), April 2015. 
+Wharton Russell Ackoff Doctoral Student Fellowship for Research on Human Decision Processes and Risk Management, Wharton, University of Pennsylvania (**$3,500** direct), April 2015.
 "Designing Collaboration Networks to Optimize Collective Problem-Solving"
 
 Annenberg National Health Communication Study Seed Grant for Innovative Health Research (**$35,000 direct**), Fall 2013.
@@ -48,7 +50,7 @@ Joshua Becker, Damon Centola, and **Devon Brackbill**. "Network dynamics of soci
 **Devon Brackbill**, "The Network Structure of Collective Innovation." Network Science Institute, Northeastern University. Boston, MA. March, 16, 2016 (invited talk).
 
 Jingwen Zhang, **Devon Brackbill**, Sijia Yang, Damon Centola. "Efficacy and Causal Mechanism of an Online Social Network Intervention to Increase Physical Activity." American Public Health Association. Chicago, IL. November, 2015 (talk).
- 
+
 **Devon Brackbill**, Joshua Becker, and Damon Centola. "The Danger of Opinion Leaders: How Centralization Undermines the Wisdom of Crowds." Workshop on Information in Networks. NYU Stern, New York, NY. October, 2015.
 
 **Devon Brackbill**. "Engineering Behavior Change through Social Media." International Conference on Computational Social Science. Helsinki, Finland. June, 2015. [video](https://youtu.be/auvv9MHTzfs?t=59m5s).
@@ -62,4 +64,3 @@ Diana C. Mutz, Edward Mansfield, and **Devon Brackbill**. "Origins of American A
 **Devon Brackbill**, Andrew Daniller, Alex Garlick, and Laura Silver. "Why Do People Hate the Media: A Survey-Experimental Investigation." Midwest Political Science Association. Chicago, IL. April 12, 2013.
 
 Doug Allen, **Devon Brackbill**, Andrew Daniller, Alex Garlick, Diana C. Mutz, Laura Silver, and Ashley Tallevi. "A Re-examination of Waning Trust in the News Media." Annenberg Colloquium (Invited Talk). University of Pennsylvania, Philadelphia, PA. November, 2012.
-
