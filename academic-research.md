@@ -5,7 +5,7 @@ title: Academic Research
 
 My **dissertation**, which was supported by the [NSF](http://www.nsf.gov/awardsearch/showAward?AWD_ID=1519026&HistoricalAwards=false) and the [Wharton Risk Center Russell Ackoff Fellowship](http://riskcenter.wharton.upenn.edu/russell-ackoff-doctoral-student-fellowships/), examined how the structure of collaboration networks affects the ability of groups to solve complex problems.
 
-#Publications
+# Publications
 
 **Devon Brackbill** and Damon Centola. (2020). Impact of network structure on collective learning: An experimental study in a data science competition. ***PLOS ONE***. [[article](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0237978)].
 
