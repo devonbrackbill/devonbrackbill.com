@@ -23,7 +23,7 @@ Edward D. Mansfield, Diana C. Mutz, and **Devon Brackbill**. Effects of the Grea
 
 ***
 
-#Grants
+# Grants
 
 National Science Foundation. Doctoral Dissertation Improvement Grant, Sociology (**$11,912**), March 2015.
 "Designing Collaboration Networks to Optimize Collective Problem-Solving" [Award information](http://www.nsf.gov/awardsearch/showAward?AWD_ID=1519026&HistoricalAwards=false).
@@ -37,7 +37,7 @@ PI, Damon Centola; Co-Investigators, **Devon Brackbill**, Sijia Yang, Jingwen Zh
 
 ***
 
-#Presentations
+# Presentations
 
 Joshua Becker, Damon Centola, and **Devon Brackbill**. "Network dynamics of social influence in the wisdom of crowds." American Sociological Association. Philadelphia, PA. August 2018. Mathematical Sociology Honorable Mention Award.
 
