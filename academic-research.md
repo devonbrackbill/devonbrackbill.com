@@ -3,6 +3,10 @@ layout: page
 title: Academic Research
 ---
 
+My academic research sits at the intersection of the social sciences, physics, and computer science. I am interested in how individual actions give rise to collective phenomena in large populations. Applications include the complex interplay of social forces that produce <a href="http://www.pnas.org/content/early/2017/06/06/1615978114.abstract"><b>collective intelligence</b></a>, <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0237978"><b>group problem-solving</b></a>, <a href="http://science.sciencemag.org/content/360/6393/1116"><b>consensus formation</b></a>, and <b>social norms</b> in human social systems.
+<br><br>
+To understand the dynamics of complex systems, I rely on agent-based models to gain theoretical traction on a social behavior. Then, I test these ideas using online experiments to see if these theories hold true.
+
 My **dissertation**, which was supported by the [NSF](http://www.nsf.gov/awardsearch/showAward?AWD_ID=1519026&HistoricalAwards=false) and the [Wharton Risk Center Russell Ackoff Fellowship](http://riskcenter.wharton.upenn.edu/russell-ackoff-doctoral-student-fellowships/), examined how the structure of collaboration networks affects the ability of groups to solve complex problems.
 
 # Publications
