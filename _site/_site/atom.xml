@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+ <title>Devon Brackbill</title>
+ <link href="http://www.devonbrackbill.com/atom.xml" rel="self"/>
+ <link href="http://www.devonbrackbill.com/"/>
+ <updated>2021-01-30T13:38:12-05:00</updated>
+ <id>http://www.devonbrackbill.com</id>
+ <author>
+   <name>Devon Brackbill</name>
+   <email></email>
+ </author>
+
+ 
+ <entry>
+   <title>Causal Discovery</title>
+   <link href="http://www.devonbrackbill.com/2020/09/01/causal-discovery/"/>
+   <updated>2020-09-01T00:00:00-04:00</updated>
+   <id>http://www.devonbrackbill.com/2020/09/01/causal-discovery</id>
+   <content type="html">&lt;p&gt;&lt;strong&gt;Causal discovery&lt;/strong&gt; is the process of inferring the causal structure of a closed system using observational data.&lt;/p&gt;
+
+&lt;p&gt;This post outlines how causal discovery is possible using time series data, and explores some novel techniques developed by Jakob Runge and colleagues in a series of papers in &lt;a href=&quot;https://www.nature.com/articles/s41467-019-10105-3&quot;&gt;Nature Communications&lt;/a&gt;, and &lt;a href=&quot;https://advances.sciencemag.org/content/5/11/eaau4996&quot;&gt;Science Advances&lt;/a&gt;. The team has also created a software package, &lt;a href=&quot;https://jakobrunge.github.io/tigramite/&quot;&gt;Tigramite&lt;/a&gt;, that implements these methods.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;h2 id=&quot;what-is-causal-discovery&quot;&gt;What is causal discovery?&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Causal discovery&lt;/strong&gt; differs from &lt;strong&gt;causal inference&lt;/strong&gt;, which tries to identify the size of an effect, typically using the &lt;a href=&quot;https://en.wikipedia.org/wiki/Rubin_causal_model&quot;&gt;Potential Outcomes framework&lt;/a&gt;. This approach is associated with Donald Rubin and dominates statistics, econometrics, and the social sciences. Causal discovery also differs from inference on &lt;strong&gt;Bayesian Networks&lt;/strong&gt;, which is often associated with the work of Judea Pearl, and which assumes the causal structure as a given. In causal discovery, the goal is to &lt;strong&gt;discover&lt;/strong&gt; this entire causal structure.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/causality_modified_smoking_model.png&quot; alt=&quot;causes of smoking&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Statisticians like to use the example of smoking and lung cancer. We can borrow a causal diagram like the one above (hat tip to &lt;a href=&quot;http://www.michaelnielsen.org/ddi/if-correlation-doesnt-imply-causation-then-what-does/&quot;&gt;Michael Nielsen&lt;/a&gt; for this diagram). The goal of causal discovery is to determine this entire causal diagram: given all the nodes (variables), which edges (correlations) exist? and which are explained away once we know the other variables? For example, we want to know if &lt;script type=&quot;math/tex&quot;&gt;X&lt;/script&gt; (smoking) really causes &lt;script type=&quot;math/tex&quot;&gt;Y&lt;/script&gt; (lung cancer), or if there is a hidden factor (perhaps genetics) that is confounding the relationship. Or if there is even no residual correlation between &lt;script type=&quot;math/tex&quot;&gt;X&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;Y&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;The core idea of causal discovery is that different causal structures produce different independence relationships. And independence relationships are things that you can determine from the data itself. For example, if A -&amp;gt; B -&amp;gt; C is the true causal diagram, then if we condition on B, there should be NO correlation between A and C (they should be independent). The core idea is to exploit conditional independence tests and infer the causal graph structure from these tests. If you make the right assumptions, you can recover the causal structure of the system. There are a number of algorithms to compute causal structures given independent samples from a data generating function. But we’re going to look at one of the most robust ones that exploits time series data.&lt;/p&gt;
+
+&lt;h2 id=&quot;pcmci-algorithm&quot;&gt;PCMCI Algorithm&lt;/h2&gt;
+
+&lt;p&gt;In a series of papers, Jakob Runge and colleagues developed the &lt;strong&gt;PCMCI algorithm&lt;/strong&gt;. The algorithm is an extension of the &lt;strong&gt;PC&lt;/strong&gt; algorithm (named after &lt;strong&gt;P&lt;/strong&gt;eters and &lt;strong&gt;C&lt;/strong&gt;lark) and first published &lt;a href=&quot;https://journals.sagepub.com/doi/10.1177/089443939100900106&quot;&gt;here&lt;/a&gt;, which recovers the graphical structure of a data set without exploiting time series information. The main benefit of PCMCI is that it exploits massive time series data to get a more powerful view of the causal structure of a time-dependent system.&lt;/p&gt;
+
+&lt;h2 id=&quot;general-setup&quot;&gt;General Setup&lt;/h2&gt;
+
+&lt;p&gt;The general setup is an underlying time-dependent system: &lt;script type=&quot;math/tex&quot;&gt;\mathbf{X}_t = (X_t^1, ... X_t^N)&lt;/script&gt;, where&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;X_t^j = f_j(\mathcal{P}(X_t^j), \eta_t^j)&lt;/script&gt;
+
+&lt;p&gt;This setup means that each of the &lt;script type=&quot;math/tex&quot;&gt;j&lt;/script&gt; variables at time &lt;script type=&quot;math/tex&quot;&gt;t&lt;/script&gt;  (i.e., &lt;script type=&quot;math/tex&quot;&gt;X_t^j&lt;/script&gt; ) is a function (&lt;script type=&quot;math/tex&quot;&gt;f_j&lt;/script&gt;) of its parents, &lt;script type=&quot;math/tex&quot;&gt;\mathcal{P}(X_t^j)&lt;/script&gt;, and a noise term , &lt;script type=&quot;math/tex&quot;&gt;\eta_t^j&lt;/script&gt;. The function is unique for each &lt;script type=&quot;math/tex&quot;&gt;j&lt;/script&gt; variable because the function is indexed for each variable (&lt;script type=&quot;math/tex&quot;&gt;f_j&lt;/script&gt;). This function can have any functional form, and can even be non-linear.&lt;/p&gt;
+
+&lt;p&gt;This is a very general setup! It includes most of the causal questions we’re interested in across all scientific fields, such as “What is causing high unemployment?”, “What has caused an increase in ‘deaths of despair’ in America?”,  “What are the causes of global warming?”, and “What is the cause of congestion in a traffic system?”. I’m pretty hard-pressed to find a process that would NOT fall under this setup! Possibilities include:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Completely deterministic systems&lt;/strong&gt; where there is no noise term. Could this setup account for deterministic systems by just making the error term very small or even non-existent? It’s unclear to me if the error term is required by either the PC or the MCI steps of the algorithm (more on these later). It’s possible that the conditional independence tests in the MCI step would fail because they rely on checking correlations between two residuals from a regression. If a system is completely deterministic, there would be no residuals, and the test would try to correlate two vectors of 0’s (and when the standard deviation is 0, then a standard Pearson correlation test will fail).&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Dynamically coupled systems&lt;/strong&gt;, such as systems in predator-prey population dynamics might not fall within this setup. I’m thinking of &lt;a href=&quot;https://science.sciencemag.org/content/338/6106/496&quot;&gt;Sugihara et al. 2012&lt;/a&gt;. I can’t remember if these dynamically coupled systems have no error terms. Could this setup account for that by having a very small error term?&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Complete random walks / Brownian noise&lt;/strong&gt;, where the noise term dominates the system. But I think in this case, the parents of each variable (&lt;script type=&quot;math/tex&quot;&gt;\mathcal{P}(X_t^j)&lt;/script&gt;) would just be an empty set, and the error term would dominate.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Non-time-series systems&lt;/strong&gt;, where we only have measurement at a single time point. If we only have a measurement of a system at a single time point, perhaps even after a randomized intervention, we would not be able to use the model in this setup. To clarify, the &lt;strong&gt;&lt;em&gt;system&lt;/em&gt;&lt;/strong&gt; is not the limiting factor here. Instead, our &lt;strong&gt;&lt;em&gt;measurement&lt;/em&gt;&lt;/strong&gt; of that system is limiting our use of this framework.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;alternative-graph-formulation&quot;&gt;Alternative Graph Formulation&lt;/h2&gt;
+
+&lt;p&gt;This system can also be represented as a graph:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;G = (\textbf{X} \times \mathbb{Z}, E)&lt;/script&gt;
+
+&lt;p&gt;where &lt;script type=&quot;math/tex&quot;&gt;G&lt;/script&gt; is the graph, &lt;script type=&quot;math/tex&quot;&gt;\textbf{X}&lt;/script&gt; is a multivariate discrete-time stochastic process, and time is indexed by &lt;script type=&quot;math/tex&quot;&gt;t \in \mathbb{Z}&lt;/script&gt; (which explains why the graph is &lt;script type=&quot;math/tex&quot;&gt;\textbf{X} \times \mathbb{Z}&lt;/script&gt;).&lt;/p&gt;
+
+&lt;p&gt;In this graph, the vertices are the variables, and the edges represent the causal structure.&lt;/p&gt;
+
+&lt;p&gt;There is some data-generating process that is time-dependent:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;X_t^j = f_j(\mathcal{P}(X_t^j), \eta_t^j), j \in {1,...,N}&lt;/script&gt;
+
+&lt;p&gt;where &lt;script type=&quot;math/tex&quot;&gt;j&lt;/script&gt; indexes the variables in &lt;script type=&quot;math/tex&quot;&gt;\textbf{X}&lt;/script&gt;, and &lt;script type=&quot;math/tex&quot;&gt;t&lt;/script&gt; indexes time lags.&lt;/p&gt;
+
+&lt;p&gt;The possible parents of a variable are all variables at all previous time points (this excludes the present): &lt;script type=&quot;math/tex&quot;&gt;\mathcal{P}(X_t^j)\subset \textbf{X}^{-}_t&lt;/script&gt;, where &lt;script type=&quot;math/tex&quot;&gt;\textbf{X}^{-}= (\textbf{X}_{t-1}&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;\textbf{X}_{t-2}, ...)&lt;/script&gt;. This means that the &lt;strong&gt;&lt;em&gt;possible&lt;/em&gt;&lt;/strong&gt; causal parents of variable &lt;script type=&quot;math/tex&quot;&gt;X_t^j&lt;/script&gt; are all the previous values of &lt;script type=&quot;math/tex&quot;&gt;\textbf{X}^{-}_t&lt;/script&gt;. The goal is to determine &lt;strong&gt;&lt;em&gt;which&lt;/em&gt;&lt;/strong&gt; subset of these variables are the actual causal parents.&lt;/p&gt;
+
+&lt;h2 id=&quot;assumptions&quot;&gt;Assumptions&lt;/h2&gt;
+
+&lt;p&gt;The PCMCI algorithm makes a number of assumptions. These are pretty restrictive:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Causal Sufficiency or Unconfoundedness&lt;/strong&gt;: all common drivers of the causal process are observed. If you’re familiar with Ordinary Least Squares (OLS), this is the standard assumption there.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Causal Markov Condition&lt;/strong&gt;: &lt;script type=&quot;math/tex&quot;&gt;X_j^t&lt;/script&gt; is independent.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;(I should probably unpack these assumptions more.)&lt;/p&gt;
+
+&lt;h2 id=&quot;conditional-independence-tests&quot;&gt;Conditional Independence Tests&lt;/h2&gt;
+
+&lt;p&gt;For each variable, we need a way to test if the set of candidate causal parents (&lt;script type=&quot;math/tex&quot;&gt;\hat{\mathcal{P}}(X_t^j)&lt;/script&gt;) is in fact a true parent of the variable (&lt;script type=&quot;math/tex&quot;&gt;\mathcal{P}(X_t^j)&lt;/script&gt;). The intuition is that if a variable is a parent of a child, then the parent will be correlated with the child, even after conditioning on all other variables. That’s the very definition of causation: ever after accounting for all other variables, the parent has an effect on the child.&lt;/p&gt;
+
+&lt;p&gt;Mathematically, we need a general test for the following conditional independence relationship:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;X \perp \!\!\! \perp Y \enspace | \enspace \mathbf{Z}&lt;/script&gt;
+
+&lt;p&gt;If this relationship holds, then we can say that &lt;script type=&quot;math/tex&quot;&gt;Y&lt;/script&gt; is a cause of &lt;script type=&quot;math/tex&quot;&gt;X&lt;/script&gt; (or vice versa), even after accounting for &lt;script type=&quot;math/tex&quot;&gt;Z&lt;/script&gt;. Additionally, if &lt;script type=&quot;math/tex&quot;&gt;Y&lt;/script&gt; is temporally &lt;em&gt;prior&lt;/em&gt; to &lt;script type=&quot;math/tex&quot;&gt;X&lt;/script&gt;, then we can use that information to determine causal direction: we know &lt;script type=&quot;math/tex&quot;&gt;Y&lt;/script&gt; must be causing &lt;script type=&quot;math/tex&quot;&gt;X&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;And further, we need this test to be available for any type of functional forms &lt;script type=&quot;math/tex&quot;&gt;f(X, Y)&lt;/script&gt;, where &lt;script type=&quot;math/tex&quot;&gt;f&lt;/script&gt; might be (1) linear in the inputs, (2) polynomial in the inputs, or (3) follow non-linearities with respect to the error terms of each variable, &lt;script type=&quot;math/tex&quot;&gt;\eta^X&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;\eta^Y&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Limitations.&lt;/strong&gt; It is unclear to me if the current setup accounts for non-linearities in the function form, such as sharp thresholds like agent-based models of &lt;a href=&quot;https://www.jstor.org/stable/10.1086/521848&quot;&gt;complex contagions&lt;/a&gt; (and &lt;a href=&quot;https://arxiv.org/abs/1710.07606&quot;&gt;review&lt;/a&gt;), or the indicator function, &lt;script type=&quot;math/tex&quot;&gt;\mathbb{1(\cdot)}&lt;/script&gt;, or anything involving &lt;script type=&quot;math/tex&quot;&gt;&gt;&lt;/script&gt; or &lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
+&lt; %]]&gt;&lt;/script&gt;, as in the Rectified Linear Unit (ReLU).&lt;/p&gt;
+
+&lt;h2 id=&quot;1-partial-correlation-parcorr&quot;&gt;1. Partial Correlation (ParCorr)&lt;/h2&gt;
+
+&lt;p&gt;The &lt;strong&gt;Partial Correlation&lt;/strong&gt; test is a residuals-based test based on running two &lt;strong&gt;linear&lt;/strong&gt; regressions:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;regress &lt;script type=&quot;math/tex&quot;&gt;Z&lt;/script&gt; ~ &lt;script type=&quot;math/tex&quot;&gt;X&lt;/script&gt; and store the residuals, &lt;script type=&quot;math/tex&quot;&gt;r_{z,x}&lt;/script&gt;.&lt;/li&gt;
+  &lt;li&gt;regress &lt;script type=&quot;math/tex&quot;&gt;Z&lt;/script&gt; ~ &lt;script type=&quot;math/tex&quot;&gt;Y&lt;/script&gt; and store the residuals, &lt;script type=&quot;math/tex&quot;&gt;r_{z,y}&lt;/script&gt;.&lt;/li&gt;
+  &lt;li&gt;conduct a correlation test (Pearson correlation?) on the two residuals, &lt;script type=&quot;math/tex&quot;&gt;r_{z,x}&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;r_{z,y}&lt;/script&gt;. If the p-value is not significantly different than 0 (based on the chosen &lt;script type=&quot;math/tex&quot;&gt;\alpha&lt;/script&gt; level), then you cannot reject the null hypothesis of no correlation. Otherwise, there is correlation, and we form an edge in the causal graph: we connect &lt;script type=&quot;math/tex&quot;&gt;X&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;Y&lt;/script&gt; conditional on &lt;script type=&quot;math/tex&quot;&gt;Z&lt;/script&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This test can only capture &lt;strong&gt;linear dependencies&lt;/strong&gt;. For example, it fails to account for time-dependent processes such as the following:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;X = Z^2 + \eta^X&lt;/script&gt;
+
+&lt;p&gt;Though, I guess you could build polynomial regressions when constructing the residuals (?).&lt;/p&gt;
+
+&lt;h2 id=&quot;2-gaussian-process-regression--distance-correlation-gpdc&quot;&gt;2. Gaussian Process Regression + Distance Correlation (GPDC)&lt;/h2&gt;
+
+&lt;p&gt;The main problem with using partial correlation on residuals from two linear regressions is that it cannot handle non-linear functional forms like &lt;script type=&quot;math/tex&quot;&gt;X = Z^2 + \eta^X&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;Y = -Z^2 + \eta^Y&lt;/script&gt; for &lt;script type=&quot;math/tex&quot;&gt;Z \sim \mathcal{N} (0,1)&lt;/script&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;gaussian-process-regression&quot;&gt;Gaussian Process Regression&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Gaussian Process Regression, plus Distance Correlation (GP+DC)&lt;/strong&gt; is another residual-based conditional independence test that handles non-linearities. It relies on replacing the linear regression in the ParCorr test above with a Gaussian Process (GP) regression. And the correlation test (Pearson correlation, above) is replaced with a distance correlation coefficient, based on a paper in the &lt;em&gt;Annals of Statistics&lt;/em&gt; by &lt;a href=&quot;https://projecteuclid.org/euclid.aos/1201012979&quot;&gt;Szekely, Rizzo, and Bakirov (2007)&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Why GP regression?&lt;/strong&gt; The main benefit of a GP regression is that it can capture any functional form. My understanding is that you could effectively replace the GP regression with a spline or any other flexible curve-fitting algorithm. The only thing that differs is that GP (or at least kriging, according to &lt;a href=&quot;https://en.wikipedia.org/wiki/Kriging&quot;&gt;Wikipedia&lt;/a&gt;) gives the Best Linear Unbiased Estimator of the intermediate values (i.e., the values for which we do not have a point already in the training set). [Side note: this confuses me b/c GP does not appear to be a &lt;strong&gt;linear&lt;/strong&gt; estimator at all.] The justification mentioned in the paper is that GP is:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Bayesian (which is a natural way to justify a method), and&lt;/li&gt;
+  &lt;li&gt;non-parametric (which is also always nice to claim).&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;I guess #1 is the main difference between using GP and using splines or some other curve fitting method. Though I don’t completely understand this choice.&lt;/p&gt;
+
+&lt;p&gt;There is a helpful intro to Gaussian Process Regression &lt;a href=&quot;https://katbailey.github.io/post/gaussian-processes-for-dummies/&quot;&gt;here&lt;/a&gt;, and the Wikipedia article on &lt;a href=&quot;https://en.wikipedia.org/wiki/Kriging&quot;&gt;kriging&lt;/a&gt; has me believe that it is nothing more than a kind of spline that can flexibly handle any functional form. Additionally, there are the 2 benefits mentioned above.&lt;/p&gt;
+
+&lt;h3 id=&quot;distance-correlation&quot;&gt;Distance Correlation&lt;/h3&gt;
+
+&lt;p&gt;Distance correlation is confusing, and the paper on it is a mathematical morass [&lt;a href=&quot;https://projecteuclid.org/euclid.aos/1201012979&quot;&gt;paper&lt;/a&gt;]. In the absence of understanding it, let’s use mental heuristics: it’s popular, and cited by &lt;a href=&quot;https://scholar.google.com/scholar?cites=12716488104233958417&amp;amp;as_sdt=5,30&amp;amp;sciodt=0,30&amp;amp;hl=en&quot;&gt;1275 articles&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The main benefit of distance correlation is that it ranges between 0 and 1, and is 0 if and only if the variables are independent. Further, distance correlation measures linear and non-linear association. [Side note: this is confusing to me because I thought the purpose of GP regression was to capture the non-linear relations among variables. If GP regression successfully did this, then the residuals should just be white noise—at least that’s my assumption. The implication appears to be that even if GP regression captures non-linear relations, the residuals will be non-linear, and Pearson correlation will fail to capture the relationship.]&lt;/p&gt;
+
+&lt;h2 id=&quot;3-conditional-mutual-information-cmi&quot;&gt;3. Conditional Mutual Information (CMI)&lt;/h2&gt;
+
+&lt;p&gt;The main limitation of any 2-step procedure for estimating conditional independence (which includes Partial Correlation and GP+DC) is that it assumes &lt;strong&gt;additive noise&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;What is an example of a function that would not work with the above tests?&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;X = Z \cdot \eta^X&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;Y = Z \cdot \eta^Y&lt;/script&gt;
+
+&lt;p&gt;In this example, the error term specific to &lt;script type=&quot;math/tex&quot;&gt;X&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;Y&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;\eta^X&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;\eta^Y&lt;/script&gt;, changes at different levels of another variable, &lt;script type=&quot;math/tex&quot;&gt;Z&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;[Side note: This raises an interesting definitional question as to what &lt;strong&gt;non-linear&lt;/strong&gt; actually means. The paper seems to use it in the sense of non-linear &lt;strong&gt;&lt;em&gt;additive&lt;/em&gt;&lt;/strong&gt;. It’s important to specify the additive part.]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Key Idea.&lt;/strong&gt; The key idea of &lt;strong&gt;Conditional Mutual Information (CMI)&lt;/strong&gt; is that it is a measure of mutual information, conditional on some other information. In general, conditional mutual information is defined as:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;I(X;Y|Z) = \int\int\int p(x,y,z) \cdot log \frac{p(x,y|z)}{p(x|z) \cdot p(y|z)} \cdot dx \cdot dy \cdot dz&lt;/script&gt;
+
+&lt;p&gt;What does this mean? Remember that the &lt;script type=&quot;math/tex&quot;&gt;log(\frac{1}{bignumber}) \rightarrow -\infty&lt;/script&gt;, and &lt;script type=&quot;math/tex&quot;&gt;log(1)=0&lt;/script&gt;, and that &lt;script type=&quot;math/tex&quot;&gt;log(&gt;1)&lt;/script&gt; increases slowly. The &lt;script type=&quot;math/tex&quot;&gt;log(\cdot)&lt;/script&gt; part of this function will only be 0 when the numerator and denominator are equal. And &lt;em&gt;that&lt;/em&gt; only occurs when &lt;script type=&quot;math/tex&quot;&gt;x&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;y&lt;/script&gt; are independent (conditional on &lt;script type=&quot;math/tex&quot;&gt;z&lt;/script&gt;, of course). Recall, the very definition of independence is that the joint distribution equals the product of the two marginals:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;p(x,y)=p(x) \cdot p(y).&lt;/script&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/logarithm_function.png&quot; alt=&quot;Behavior of log(x)&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Side note: I’m confused because my recollection of mutual information is that it is not transitive, that is &lt;script type=&quot;math/tex&quot;&gt;I(X;Y) \neq I(Y;X)&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;Note: this is only defined for continuous variables (because of the integral over the joint density). I think it’s possible to substitute the integral for a summation, and I believe that’s what the tigramite package does.&lt;/p&gt;
+
+&lt;h1 id=&quot;extensions&quot;&gt;Extensions&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Mechanisms and the meaning of “causation”&lt;/strong&gt;. Causation in this framework has a strange meaning. I’m reminded of the hand-waving, and scare-quotes you always see around “Granger causation” versus just causation, &lt;em&gt;simpliciter&lt;/em&gt;. What I mean is that it’s unclear that this method will be able to reveal the &lt;strong&gt;mechanism&lt;/strong&gt; of a complex system, even if it can identify the variables that “cause” each other. (Separately, it would be really interesting if it could propose and test an agent-based model capable of reproducing the time-series dynamics.) Also, this method would appear to provide different results at different levels of temporal aggregation. In my experience on using this method with time series data of different temporal granularities (5-mins, hourly, and daily), you see very different causal patterns. Maybe we can resolve this, and it is fundamentally no different than saying “temperature causes &lt;script type=&quot;math/tex&quot;&gt;X&lt;/script&gt;” (i.e., &lt;em&gt;average&lt;/em&gt; molecular motion over a volume causes &lt;script type=&quot;math/tex&quot;&gt;X&lt;/script&gt;), when at a more fine-grained temporal and spatial analysis, there are really all these complex collisions that are the real causes.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Collective Intelligence</title>
+   <link href="http://www.devonbrackbill.com/2017/06/12/collective-intelligence/"/>
+   <updated>2017-06-12T00:00:00-04:00</updated>
+   <id>http://www.devonbrackbill.com/2017/06/12/collective-intelligence</id>
+   <content type="html">&lt;p&gt;Our new publication on the wisdom of crowds has come out in &lt;em&gt;Proceedings of the National Academy of Sciences&lt;/em&gt; &lt;a href=&quot;http://www.pnas.org/content/early/2017/06/06/1615978114.abstract&quot;&gt;here&lt;/a&gt;. There’s a good summary on  &lt;a href=&quot;https://phys.org/news/2017-06-refute-groupthink-wisdom-crowds-prevail.html&quot;&gt;Phys.org&lt;/a&gt; and the video below.&lt;/p&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/XKH5ITx6AAk&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+</content>
+ </entry>
+ 
+
+</feed>
