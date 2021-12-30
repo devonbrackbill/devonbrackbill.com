@@ -2,6 +2,7 @@
 layout: post
 title:  "Causal Discovery"
 date:   2020-09-01
+image: /img/creation.jpeg
 ---
 
 **Causal discovery** is the process of inferring the causal structure of a closed system using observational data.
